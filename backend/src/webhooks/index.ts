@@ -6,7 +6,7 @@ import { db } from "../db/index.js";
 import { users } from "../db/schema.js";
 import { eq } from "drizzle-orm";
 
-export async function ClerkWebHookHandler(req:Request,res:Response){
+export async function  ClerkWebHookHandler(req:Request,res:Response){
     const env=getEnv()
     try {
         if(!env.CLERK_WEBHOOK_SECRET){
