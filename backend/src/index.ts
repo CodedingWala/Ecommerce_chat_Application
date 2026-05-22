@@ -32,7 +32,7 @@ if (fs.existsSync(publicDirectory)) {
             next()
             return
         }
-        if (req.path.startsWith("api") || req.path.startsWith("webhook")) {
+        if (req.path.startsWith("/api") || req.path.startsWith("/webhooks")) {
             next()
             return
         }
