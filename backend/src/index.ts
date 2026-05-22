@@ -17,14 +17,17 @@ app.post("/webhooks/clerk", rawJson, (req, res) => {
 
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: env.FRONTEND_URL,  // Only allow your frontend
+    credentials: true
+}))
 app.use(clerkMiddleware())
 
 
 const publicDirectory = path.join(process.cwd(), "public")
 if (fs.existsSync(publicDirectory)) {
     app.use(express.static(publicDirectory))
-    app.get("/{*any}", (req, res, next) => {
+    app.get("*", (req, res, next) => {
         if (req.method != "GET" && req.method != "HEAD") {
             next()
             return
@@ -38,4 +41,4 @@ if (fs.existsSync(publicDirectory)) {
 }
 
 
-app.listen(env.FRONTEND_URL, () => console.log("listening on port 3001"))
+app.listen(env.PORT, () => console.log("listening on port 3001"))
