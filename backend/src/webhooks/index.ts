@@ -50,4 +50,5 @@ export async function  ClerkWebHookHandler(req:Request,res:Response){
         console.log("error occured in saving the user",error)
         res.status(400).json({error:"invalid webHook"})
     }
+
 }
