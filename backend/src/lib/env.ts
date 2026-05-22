@@ -27,6 +27,7 @@ const envSchema = z.object({
   IMAGEKIT_URL_ENDPOINT: z.string().url(),
 
   SENTRY_DSN: z.string().url().optional(),
+  
 });
 
 export type Env = z.infer<typeof envSchema>;
