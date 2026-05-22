@@ -27,7 +27,7 @@ app.use(clerkMiddleware())
 const publicDirectory = path.join(process.cwd(), "public")
 if (fs.existsSync(publicDirectory)) {
     app.use(express.static(publicDirectory))
-    app.get("*", (req, res, next) => {
+    app.get("/(.*)", (req, res, next) => {
         if (req.method != "GET" && req.method != "HEAD") {
             next()
             return
