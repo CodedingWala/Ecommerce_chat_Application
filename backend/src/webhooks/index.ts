@@ -29,7 +29,7 @@ export async function  ClerkWebHookHandler(req:Request,res:Response){
             const displayName=[u.first_name,u.last_name].filter(Boolean).join(" ") || u.username || null
             const role=parseRole(u.public_metadata?.role)
 
-            db.insert(users).values({
+          await  db.insert(users).values({
                 clerckUserId:u.id,
                 email:email,
                 displayName:displayName,
@@ -43,7 +43,7 @@ export async function  ClerkWebHookHandler(req:Request,res:Response){
         if(evt.type=="user.deleted"){
             const id=evt.data.id
             if(id){
-                db.delete(users).where(eq(users.clerckUserId,id))
+               await db.delete(users).where(eq(users.clerckUserId,id))
             }
         }
     } catch (error) {
