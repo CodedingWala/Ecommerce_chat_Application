@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { getEnv } from "../lib/env.js";
 import { verifyWebhook } from "@clerk/backend/webhooks";
 import { parseRole } from "../lib/role.js";
@@ -40,7 +40,7 @@ export async function  ClerkWebHookHandler(req:Request,res:Response){
             })
         }
 
-        if(evt.type=="user.deleted"){
+        if(evt.type =="user.deleted"){
             const id=evt.data.id
             if(id){
                await db.delete(users).where(eq(users.clerckUserId,id))

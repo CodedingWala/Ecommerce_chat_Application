@@ -8,6 +8,7 @@ import fs from "node:fs"
 const app = express()
 import { getEnv } from "./lib/env.js"
 const env = getEnv()
+import KepAlive from "./lib/corn.js"
 
 const rawJson = express.raw({ type: "application/json", limit: "1mb" })
 
@@ -22,6 +23,10 @@ app.use(cors({
     credentials: true
 }))
 app.use(clerkMiddleware())
+
+app.get("/health", (_req, res) => {
+  res.json({ ok: true });
+});
 
 
 const publicDirectory = path.join(process.cwd(), "public")
@@ -41,4 +46,9 @@ if (fs.existsSync(publicDirectory)) {
 }
 
 
-app.listen(env.PORT, () => console.log("listening on port 3001"))
+app.listen(env.PORT, () => {
+    console.log("listening on port 3001")
+    if(env.NODE_ENV=="production"){
+        KepAlive.start()
+    }
+})
